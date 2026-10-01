@@ -1,7 +1,9 @@
-# Health check endpoint
-const { healthCheck } = require('./config/db');
+const express = require('express');
+const { healthCheck } = require('../config/db');
 
-app.get('/health', async (req, res) => {
+const router = express.Router();
+
+router.get('/', async (req, res) => {
   try {
     const health = await healthCheck();
     res.json(health);
@@ -12,3 +14,5 @@ app.get('/health', async (req, res) => {
     });
   }
 });
+
+module.exports = router;
