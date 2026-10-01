@@ -1,0 +1,27 @@
+{
+  "name": "raven-ai-studio",
+  "version": "1.0.0",
+  "description": "Raven AI Studio - Full-stack AI agents & automation platform",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:migrate": "psql -U postgres -d raven_studio -f src/config/schema.sql"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "bcryptjs": "^2.4.3",
+    "express-session": "^1.17.3",
+    "cookie-parser": "^1.4.6",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Raven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .dashboard-grid { display: grid; grid-template-columns: 250px 1fr; gap: 24px; min-height: calc(100vh - 200px); }
+    .sidebar { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .sidebar__nav { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar__link { padding: 12px 16px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; color: var(--text-soft); transition: all 0.2s; }
+    .sidebar__link:hover, .sidebar__link--active { background: var(--brand-light); color: var(--brand); }
+    .main-content { padding: 8px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .stat-card__value { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+    .stat-card__label { font-size: 13px; color: var(--text-muted); }
+    .content-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
+    .content-card h3 { font-size: 18px; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+    th { font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+    .badge--success { background: #e6f4e8; color: #1c7c30; }
+    .badge--warning { background: #fff4e6; color: #c77800; }
+    .badge--info { background: var(--brand-light); color: var(--brand); }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__left">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
+      </div>
+      <a href="/" class="nav__brand"><div class="nav__mark"></div><span>Raven</span></a>
+      <div class="nav__right">
+        <span id="userName" style="font-size: 13px; color: var(--text-muted)"></span>
+        <button onclick="handleLogout()" class="btn btn--ghost" style="font-size: 13px">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding-top: 24px; padding-bottom: 40px;">
+    <div class="dashboard-grid">
+      <aside class="sidebar">
+        <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border);">
+          <div style="width: 48px; height: 48px; background: var(--brand-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--brand); font-size: 20px;" id="userAvatar">U</div>
+          <div style="margin-top: 12px;">
+            <div style="font-weight: 600;" id="userFullName">User</div>
+            <div style="font-size: 13px; color: var(--text-muted);" id="userEmail">user@example.com</div>
+          </div>
+        </div>
+        <nav class="sidebar__nav">
+          <a href="#" class="sidebar__link sidebar__link--active">Dashboard</a>
+          <a href="#" class="sidebar__link">Projects</a>
+          <a href="/pricing" class="sidebar__link">Pricing</a>
+          <a href="/faq" class="sidebar__link">FAQ</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <h1 style="font-size: 28px; margin-bottom: 24px;">Dashboard</h1>
+        
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card">
+            <div class="stat-card__value" id="statProjects">-</div>
+            <div class="stat-card__label">Active Projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__value" id="statEnquiries">-</div>
+            <div class="stat-card__label">Pending Enquiries</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__value" id="statAgents">-</div>
+            <div class="stat-card__label">Agents Deployed</div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <h3>Recent Activity</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="activityTable">
+              <tr>
+                <td>Account created</td>
+                <td>Just now</td>
+                <td><span class="badge badge--success">Complete</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin;
+    let currentUser = null;
+
+    async function checkAuth() {
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: 'include' });
+        if (res.ok) {
+          currentUser = await res.json();
+          updateUI(currentUser.user);
+        } else {
+          window.location.href = '/login';
+        }
+      } catch (err) {
+        window.location.href = '/login';
+      }
+    }
+
+    function updateUI(user) {
+      document.getElementById('userName').textContent = user.firstName || user.email.split('@')[0];
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('userFullName').textContent = `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'User';
+      document.getElementById('userAvatar').textContent = (user.firstName || user.email)[0].toUpperCase();
+    }
+
+    async function handleLogout() {
+      await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
+      window.location.href = '/';
+    }
+
+    async function loadStats() {
+      try {
+        const res = await fetch(`${API_BASE}/api/dashboard/stats`, { credentials: 'include' });
+        if (res.ok) {
+          const stats = await res.json();
+          document.getElementById('statProjects').textContent = stats.totalProjects || 0;
+          document.getElementById('statEnquiries').textContent = stats.pendingEnquiries || 0;
+          document.getElementById('statAgents').textContent = '0';
+        }
+      } catch (err) {
+        console.error('Failed to load stats:', err);
+      }
+    }
+
+    checkAuth().then(loadStats);
+  </script>
+</body>
+</html>

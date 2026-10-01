@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Raven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__left">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
+      </div>
+      
+      <a href="/" class="nav__brand">
+        <div class="nav__mark"></div>
+        <span>Raven</span>
+      </a>
+      
+      <div class="nav__right">
+        <a href="/pricing" class="nav__link">Pricing</a>
+        <a href="/faq" class="nav__link">FAQ</a>
+        <a href="/login" class="nav__cta">Client Portal</a>
+      </div>
+      
+      <button class="nav__menu-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section__header">
+          <div class="section__tag">Portfolio</div>
+          <h1 class="section__title">Selected work</h1>
+          <p class="section__desc">Recent engagements — from single-agent tools to enterprise platforms.</p>
+        </div>
+        
+        <div class="cards" style="grid-template-columns: repeat(2, 1fr);">
+          <!-- Project 1 -->
+          <article class="card">
+            <div style="height: 160px; background: linear-gradient(135deg, #eef0fa, #dfe3f5); border-radius: var(--radius-md); margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+              <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius-sm); width: 75%; box-shadow: var(--shadow-sm);">
+                <div style="height: 6px; background: rgba(84,101,214,0.2); border-radius: 3px; margin: 6px 0;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.15); border-radius: 3px; margin: 6px 0; width: 70%;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.1); border-radius: 3px; margin: 6px 0; width: 50%;"></div>
+              </div>
+            </div>
+            <h3 class="card__title">Support Agent — FinTech</h3>
+            <p class="card__desc">A RAG-powered support agent handling 80% of inbound tickets autonomously, with human-handoff for edge cases.</p>
+            <div class="card__tags">
+              <span class="tag">Agent + RAG</span>
+              <span class="tag">8 weeks</span>
+            </div>
+          </article>
+          
+          <!-- Project 2 -->
+          <article class="card">
+            <div style="height: 160px; background: linear-gradient(135deg, #f5eff8, #ebe3f0); border-radius: var(--radius-md); margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+              <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius-sm); width: 75%; box-shadow: var(--shadow-sm);">
+                <div style="height: 6px; background: rgba(84,101,214,0.1); border-radius: 3px; margin: 6px 0; width: 50%;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.2); border-radius: 3px; margin: 6px 0;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.15); border-radius: 3px; margin: 6px 0; width: 70%;"></div>
+              </div>
+            </div>
+            <h3 class="card__title">Lead Enrichment — B2B SaaS</h3>
+            <p class="card__desc">Automated workflow that researches, scores, and routes inbound leads through multiple data sources.</p>
+            <div class="card__tags">
+              <span class="tag">Automation</span>
+              <span class="tag">4 weeks</span>
+            </div>
+          </article>
+          
+          <!-- Project 3 -->
+          <article class="card">
+            <div style="height: 160px; background: linear-gradient(135deg, #eff8f4, #e0eee8); border-radius: var(--radius-md); margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+              <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius-sm); width: 75%; box-shadow: var(--shadow-sm);">
+                <div style="height: 6px; background: rgba(84,101,214,0.15); border-radius: 3px; margin: 6px 0; width: 70%;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.1); border-radius: 3px; margin: 6px 0;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.2); border-radius: 3px; margin: 6px 0; width: 50%;"></div>
+              </div>
+            </div>
+            <h3 class="card__title">Analytics Dashboard — HealthTech</h3>
+            <p class="card__desc">Full-stack platform with real-time visualization, role-based access, and an AI-powered insights panel.</p>
+            <div class="card__tags">
+              <span class="tag">Full-stack</span>
+              <span class="tag">12 weeks</span>
+            </div>
+          </article>
+          
+          <!-- Project 4 -->
+          <article class="card">
+            <div style="height: 160px; background: linear-gradient(135deg, #f8f4ef, #f0e8df); border-radius: var(--radius-md); margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+              <div style="background: var(--bg-card); padding: 20px; border-radius: var(--radius-sm); width: 75%; box-shadow: var(--shadow-sm);">
+                <div style="height: 6px; background: rgba(84,101,214,0.1); border-radius: 3px; margin: 6px 0;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.2); border-radius: 3px; margin: 6px 0; width: 50%;"></div>
+                <div style="height: 6px; background: rgba(84,101,214,0.15); border-radius: 3px; margin: 6px 0; width: 70%;"></div>
+              </div>
+            </div>
+            <h3 class="card__title">Document Intelligence — Legal</h3>
+            <p class="card__desc">Multi-agent system that reads contracts, extracts key terms, and flags risks into structured JSON.</p>
+            <div class="card__tags">
+              <span class="tag">Multi-agent</span>
+              <span class="tag">10 weeks</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center;">
+      <span>© 2027 Raven. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

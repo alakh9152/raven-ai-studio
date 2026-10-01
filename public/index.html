@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raven — AI Agents & Automation Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navigation with centered logo -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__left">
+        <a href="/" class="nav__link">Services</a>
+        <a href="/work" class="nav__link">Work</a>
+      </div>
+      
+      <!-- Centered Logo -->
+      <a href="/" class="nav__brand">
+        <div class="nav__mark"></div>
+        <span>Raven</span>
+      </a>
+      
+      <div class="nav__right">
+        <a href="/pricing" class="nav__link">Pricing</a>
+        <a href="/faq" class="nav__link">FAQ</a>
+        <a href="/login" class="nav__cta">Client Portal</a>
+      </div>
+      
+      <!-- Mobile menu button -->
+      <button class="nav__menu-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__badge">
+          <span class="hero__dot"></span>
+          Taking on new engagements — Q1 2027
+        </div>
+        
+        <h1 class="hero__title">
+          AI agents & automation that <span>quietly do the work.</span>
+        </h1>
+        
+        <p class="hero__subtitle">
+          We build intelligent software — from custom agent workflows to production web platforms. A small studio focused on reliability and craft.
+        </p>
+        
+        <div class="hero__actions">
+          <a href="/services" class="btn btn--primary btn--lg">Explore services</a>
+          <a href="/work" class="btn btn--secondary btn--lg">See our work</a>
+        </div>
+        
+        <div class="hero__metrics">
+          <div class="metric">
+            <div class="metric__value">120+</div>
+            <div class="metric__label">Agents deployed</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">48</div>
+            <div class="metric__label">Products shipped</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">7</div>
+            <div class="metric__label">Years building</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value">99.9%</div>
+            <div class="metric__label">Uptime maintained</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section section--muted">
+      <div class="container">
+        <div class="section__header">
+          <div class="section__tag">What we do</div>
+          <h2 class="section__title">Three core practices</h2>
+          <p class="section__desc">Each engagement is tailored to your architecture, constraints, and scalability targets.</p>
+        </div>
+        
+        <div class="cards">
+          <!-- Service 1 -->
+          <article class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                <polyline points="2 17 12 22 22 17"/>
+                <polyline points="2 12 12 17 22 12"/>
+              </svg>
+            </div>
+            <h3 class="card__title">AI Agent Development</h3>
+            <p class="card__desc">Custom agents that read, reason, and act on your data with reliable guardrails for production use.</p>
+            <div class="card__tags">
+              <span class="tag">Tool use</span>
+              <span class="tag">RAG</span>
+              <span class="tag">Memory</span>
+              <span class="tag">Guardrails</span>
+            </div>
+          </article>
+          
+          <!-- Service 2 -->
+          <article class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <path d="M4 10h16"/>
+                <circle cx="12" cy="6" r="1"/>
+                <path d="M12 22v-4"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Automation Systems</h3>
+            <p class="card__desc">Workflows connecting your tools, databases, and APIs so repetitive processes run autonomously.</p>
+            <div class="card__tags">
+              <span class="tag">Workflows</span>
+              <span class="tag">APIs</span>
+              <span class="tag">Monitoring</span>
+              <span class="tag">Alerts</span>
+            </div>
+          </article>
+          
+          <!-- Service 3 -->
+          <article class="card">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="14" rx="2"/>
+                <line x1="3" y1="8" x2="21" y2="8"/>
+                <circle cx="7" cy="6" r="1" fill="currentColor"/>
+                <line x1="8" y1="22" x2="16" y2="22"/>
+                <line x1="12" y1="18" x2="12" y2="22"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Full-Stack Builds</h3>
+            <p class="card__desc">Complete web platforms — frontend, backend, database, and deployment. From marketing sites to SaaS dashboards.</p>
+            <div class="card__tags">
+              <span class="tag">Frontend</span>
+              <span class="tag">Backend</span>
+              <span class="tag">DevOps</span>
+              <span class="tag">Security</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section__header">
+          <div class="section__tag">How we work</div>
+          <h2 class="section__title">A calm, deliberate process</h2>
+          <p class="section__desc">No rush, no noise. Each project follows a steady rhythm designed to de-risk decisions early.</p>
+        </div>
+        
+        <div class="steps">
+          <div class="step">
+            <div class="step__number">1</div>
+            <h3 class="step__title">Discovery</h3>
+            <p class="step__desc">Mapping your problem, data, and constraints. You receive a written brief before coding begins.</p>
+          </div>
+          
+          <div class="step">
+            <div class="step__number">2</div>
+            <h3 class="step__title">Design</h3>
+            <p class="step__desc">Architecture, agent flows, and UI mockups. Reviewed and approved prior to development.</p>
+          </div>
+          
+          <div class="step">
+            <div class="step__number">3</div>
+            <h3 class="step__title">Build</h3>
+            <p class="step__desc">Iterative development with weekly demos. Full transparency and continuous steering.</p>
+          </div>
+          
+          <div class="step">
+            <div class="step__number">4</div>
+            <h3 class="step__title">Deploy & Care</h3>
+            <p class="step__desc">Production release, monitoring setup, and ongoing maintenance to ensure reliability.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+      <div class="container">
+        <div class="cta">
+          <h2 class="cta__title">Let's build something quietly powerful.</h2>
+          <p class="cta__desc">Book a free 30-minute consultation to discuss your project scope and architecture.</p>
+          <a href="/pricing" class="btn btn--primary btn--lg">View pricing & plans</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">
+            <div class="footer__mark"></div>
+            <span>Raven</span>
+          </div>
+          <p class="footer__desc">A small studio building AI agents, automation systems, and full-stack products. Quiet, deliberate, reliable.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            </a>
+            <a href="mailto:hello@raven.ai" class="footer__social-link" aria-label="Email">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M12 13l-11-7v14l11 7z"/></svg>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer__heading">Services</h4>
+          <a href="/services" class="footer__link">AI Agents</a>
+          <a href="/services" class="footer__link">Automation</a>
+          <a href="/services" class="footer__link">Full-Stack</a>
+        </div>
+        
+        <div>
+          <h4 class="footer__heading">Company</h4>
+          <a href="/work" class="footer__link">Work</a>
+          <a href="/pricing" class="footer__link">Pricing</a>
+          <a href="/faq" class="footer__link">FAQ</a>
+        </div>
+        
+        <div>
+          <h4 class="footer__heading">Account</h4>
+          <a href="/login" class="footer__link">Client Portal</a>
+          <a href="/pricing" class="footer__link">Get Started</a>
+        </div>
+      </div>
+      
+      <div class="footer__bottom">
+        <span>© 2027 Raven. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

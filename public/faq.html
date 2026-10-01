@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Raven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__left">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
+      </div>
+      
+      <a href="/" class="nav__brand">
+        <div class="nav__mark"></div>
+        <span>Raven</span>
+      </a>
+      
+      <div class="nav__right">
+        <a href="/work" class="nav__link">Work</a>
+        <a href="/pricing" class="nav__link">Pricing</a>
+        <a href="/login" class="nav__cta">Client Portal</a>
+      </div>
+      
+      <button class="nav__menu-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section">
+      <div class="container" style="max-width: 760px;">
+        <div class="section__header">
+          <div class="section__tag">FAQ</div>
+          <h1 class="section__title">Common questions</h1>
+          <p class="section__desc">Everything you need to know about working with us.</p>
+        </div>
+        
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>
+              <span>How quickly can you start?</span>
+              <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-item__answer">
+              Typically within 1–2 weeks of our first call. We take on a limited number of concurrent projects so each gets focused attention. If you have an urgent timeline, mention it during the call.
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>
+              <span>Do you work with existing codebases?</span>
+              <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-item__answer">
+              Yes. About half our engagements involve integrating agents or automation into existing systems. We'll review your codebase during discovery and propose an approach that fits your current architecture — no forced rewrites.
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>
+              <span>What AI models do you support?</span>
+              <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-item__answer">
+              We are model-agnostic: OpenAI, Anthropic, open-source models hosted on your infrastructure, or hybrid setups. The choice depends on your latency, cost, privacy requirements, and whether you need specialized fine-tuning.
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>
+              <span>Who owns the code and IP?</span>
+              <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-item__answer">
+              You retain 100% ownership of all source code, agent configurations, and documentation upon completion. We retain no ownership. You can take everything in-house at any point.
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>
+              <span>Do you offer ongoing maintenance?</span>
+              <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-item__answer">
+              Every project includes post-launch support. Studio and Enterprise plans include continuous maintenance, monitoring, and updates as your needs evolve.
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>
+              <span>What industries do you work with?</span>
+              <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-item__answer">
+              We work across fintech, healthcare, legal, SaaS, e-commerce, and more. Our experience spans startups to enterprise organizations looking to automate complex workflows.
+            </div>
+          </details>
+        </div>
+        
+        <div class="cta" style="margin-top: 60px;">
+          <h2 class="cta__title">Still have questions?</h2>
+          <p class="cta__desc">Book a free 30-minute consultation to discuss your project.</p>
+          <a href="/login" class="btn btn--primary">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center;">
+      <span>© 2027 Raven. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
