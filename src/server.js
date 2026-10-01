@@ -14,6 +14,7 @@ const { requireAuth } = require('./middleware/auth');
 const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
 const apiRoutes = require('./routes/api');
+const healthRoutes = require('./routes/health');
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api', apiRoutes);
+app.use('/health', healthRoutes);
 
 // ─── Page Routes ───────────────────────────────────────────────────────
 const pageRoutes = [
@@ -86,7 +88,7 @@ pageRoutes.forEach(({ path: route, file }) => {
 
 // Protected dashboard route
 app.get('/dashboard', requireAuth, (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/dashboard.html'));
+  res.sendFile(path.join(__dirname, '../public', 'dashboard.html'));
 });
 
 // ─── Error Handling ────────────────────────────────────────────────────
