@@ -1,0 +1,18 @@
+<!-- Raven Logo SVG Component -->
+<!-- Save as: public/assets/raven-logo.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="ravenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5a67d8"/>
+      <stop offset="100%" style="stop-color:#3b4fc4"/>
+    </linearGradient>
+  </defs>
+  <!-- Background rounded square -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#ravenGrad)"/>
+  <!-- Raven bird silhouette -->
+  <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+  <!-- Eye -->
+  <circle cx="38" cy="22" r="2" fill="url(#ravenGrad)"/>
+  <!-- Wing detail -->
+  <path d="M20 32c2-4 6-6 10-6" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+</svg>

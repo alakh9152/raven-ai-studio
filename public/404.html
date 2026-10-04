@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__left">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
+      </div>
+      <a href="/" class="nav__brand">
+        <div class="nav__mark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#5a67d8"/><stop offset="100%" style="stop-color:#3b4fc4"/></linearGradient></defs>
+            <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#rg1)"/>
+            <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+            <circle cx="38" cy="22" r="2" fill="url(#rg1)"/>
+          </svg>
+        </div>
+        <span>Raven</span>
+      </a>
+      <div class="nav__right">
+        <a href="/pricing" class="nav__link">Pricing</a>
+        <a href="/login" class="nav__cta">Client Portal</a>
+      </div>
+      <button class="nav__menu-btn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section" style="min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+      <div class="container" style="text-align: center; max-width: 480px;">
+        <div style="font-size: 120px; font-weight: 700; color: var(--brand); line-height: 1; margin-bottom: 16px;">404</div>
+        <h1 style="font-size: 28px; font-weight: 600; margin-bottom: 12px;">Page not found</h1>
+        <p style="color: var(--text-soft); margin-bottom: 32px;">The page you're looking for doesn't exist or has been moved.</p>
+        <a href="/" class="btn btn--primary">Return home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center;">
+      <span>© 2027 Raven. All rights reserved.</span>
+    </div>
+  </footer>
+</body>
+</html>

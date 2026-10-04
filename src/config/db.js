@@ -5,13 +5,12 @@ require('dotenv').config();
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
   port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || 'raven_studio',
+  database: process.env.DB_NAME || 'ai_saas',
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || 'postgres',
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
-  // Security settings for production
   ssl: process.env.NODE_ENV === 'production' ? {
     rejectUnauthorized: false
   } : false,
@@ -23,7 +22,7 @@ const query = async (text, params) => {
   try {
     const res = await pool.query(text, params);
     const duration = Date.now() - start;
-    console.log('Query executed', { text, duration, rows: res.rows.length });
+    console.log('Query executed', { duration, rows: res.rows?.length });
     return res;
   } catch (error) {
     console.error('Database query error', { 
@@ -35,7 +34,7 @@ const query = async (text, params) => {
   }
 };
 
-// Transaction helper
+// Transaction helper using pool client
 const transaction = async (callback) => {
   const client = await pool.connect();
   try {

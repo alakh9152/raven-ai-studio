@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Email — Raven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__left">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
+      </div>
+      <a href="/" class="nav__brand">
+        <div class="nav__mark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#5a67d8"/><stop offset="100%" style="stop-color:#3b4fc4"/></linearGradient></defs>
+            <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#rg1)"/>
+            <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+            <circle cx="38" cy="22" r="2" fill="url(#rg1)"/>
+          </svg>
+        </div>
+        <span>Raven</span>
+      </a>
+      <div class="nav__right">
+        <a href="/login" class="nav__cta">Sign In</a>
+      </div>
+      <button class="nav__menu-btn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-card__header">
+        <div style="display:flex; align-items:center; gap:10px; justify-content:center; margin-bottom:20px;">
+          <div class="footer__mark" style="width:32px;height:32px;">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#rg1)"/>
+              <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+              <circle cx="38" cy="22" r="2" fill="url(#rg1)"/>
+            </svg>
+          </div>
+          <span style="font-size:20px;font-weight:700;">Raven</span>
+        </div>
+        <h1 class="auth-card__title" id="pageTitle">Verifying your email...</h1>
+        <p class="auth-card__desc" id="pageDesc">Please wait while we verify your account.</p>
+      </div>
+
+      <div id="loadingState" style="text-align:center;padding:40px 0;">
+        <div class="spinner" style="margin:0 auto 16px;"></div>
+        <p style="color:var(--text-muted);">Processing...</p>
+      </div>
+
+      <div id="successState" class="hidden" style="text-align:center;padding:40px 0;">
+        <div style="width:64px;height:64px;background:#e6f4e8;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1c7c30" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 style="font-size:20px;font-weight:600;margin-bottom:8px;">Email verified!</h2>
+        <p style="color:var(--text-soft);margin-bottom:24px;">Your account has been verified. You can now sign in.</p>
+        <a href="/login" class="btn btn--primary">Sign in</a>
+      </div>
+
+      <div id="errorState" class="hidden" style="text-align:center;padding:40px 0;">
+        <div style="width:64px;height:64px;background:#fcebea;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c02a2a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <h2 style="font-size:20px;font-weight:600;margin-bottom:8px;">Invalid or expired link</h2>
+        <p style="color:var(--text-soft);margin-bottom:24px;">This verification link has expired or is invalid. Request a new one.</p>
+        <a href="/forgot-password" class="btn btn--secondary">Request new link</a>
+      </div>
+
+      <div class="auth-footer" style="margin-top:32px;">
+        <a href="/">← Back to home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin;
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const userId = urlParams.get('user_id');
+    
+    async function verifyEmail() {
+      if (!token || !userId) {
+        document.getElementById('loadingState').classList.add('hidden');
+        document.getElementById('errorState').classList.remove('hidden');
+        document.getElementById('pageTitle').textContent = 'Invalid verification link';
+        document.getElementById('pageDesc').textContent = 'The verification link is incomplete or invalid.';
+        return;
+      }
+      
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/verify-email`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, userId })
+        });
+        
+        const data = await res.json();
+        
+        document.getElementById('loadingState').classList.add('hidden');
+        
+        if (res.ok) {
+          document.getElementById('successState').classList.remove('hidden');
+        } else {
+          document.getElementById('errorState').classList.remove('hidden');
+        }
+      } catch (err) {
+        document.getElementById('loadingState').classList.add('hidden');
+        document.getElementById('errorState').classList.remove('hidden');
+      }
+    }
+    
+    verifyEmail();
+  </script>
+</body>
+</html>

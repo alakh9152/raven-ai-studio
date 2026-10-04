@@ -133,8 +133,8 @@ async function handleLogin(e) {
   e.preventDefault();
   
   const form = e.target;
-  const email = form.email.value;
-  const password = form.password.value;
+  const email = document.getElementById('loginEmail')?.value || form.email?.value;
+  const password = document.getElementById('loginPassword')?.value || form.password?.value;
   const errorEl = form.querySelector('.alert');
   const submitBtn = form.querySelector('button[type="submit"]');
   
@@ -180,10 +180,10 @@ async function handleRegister(e) {
   e.preventDefault();
   
   const form = e.target;
-  const email = form.email.value;
-  const password = form.password.value;
-  const firstName = form.firstName.value;
-  const lastName = form.lastName.value;
+  const firstName = document.getElementById('registerFirstName')?.value || form.firstName?.value;
+  const lastName = document.getElementById('registerLastName')?.value || form.lastName?.value;
+  const email = document.getElementById('registerEmail')?.value || form.email?.value;
+  const password = document.getElementById('registerPassword')?.value || form.password?.value;
   const errorEl = form.querySelector('.alert');
   const submitBtn = form.querySelector('button[type="submit"]');
   

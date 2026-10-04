@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Raven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__left">
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
+      </div>
+      <a href="/" class="nav__brand">
+        <div class="nav__mark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#5a67d8"/><stop offset="100%" style="stop-color:#3b4fc4"/></linearGradient></defs>
+            <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#rg1)"/>
+            <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+            <circle cx="38" cy="22" r="2" fill="url(#rg1)"/>
+          </svg>
+        </div>
+        <span>Raven</span>
+      </a>
+      <div class="nav__right">
+        <a href="/work" class="nav__link">Work</a>
+        <a href="/pricing" class="nav__link">Pricing</a>
+        <a href="/faq" class="nav__link">FAQ</a>
+        <a href="/login" class="nav__cta">Client Portal</a>
+      </div>
+      <button class="nav__menu-btn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section">
+      <div class="container" style="max-width: 800px;">
+        <div class="section__header">
+          <div class="section__tag">About</div>
+          <h1 class="section__title">Who we are</h1>
+          <p class="section__desc">A small studio focused on building reliable AI systems and automation tools.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-bottom: 48px;">
+          <div>
+            <h2 style="font-size: 24px; font-weight: 600; margin-bottom: 16px;">Our approach</h2>
+            <p style="font-size: 15px; color: var(--text-soft); line-height: 1.7; margin-bottom: 20px;">
+              We believe the best software is built quietly and deliberately. No hype, no rushed releases — just careful engineering that stands the test of time.
+            </p>
+            <p style="font-size: 15px; color: var(--text-soft); line-height: 1.7; margin-bottom: 20px;">
+              Our team brings together expertise in AI agent development, full-stack engineering, and systems automation. We work with a select number of clients at a time to ensure every project receives focused attention.
+            </p>
+            <p style="font-size: 15px; color: var(--text-soft); line-height: 1.7;">
+              Founded in 2020, we've shipped over 48 products and deployed 120+ AI agents across fintech, healthcare, legal, and SaaS sectors.
+            </p>
+          </div>
+          <div style="background: var(--bg); border-radius: var(--radius-xl); padding: 40px;">
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+              <div>
+                <div style="font-size: 32px; font-weight: 700; color: var(--brand);">7+</div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Years of experience</div>
+              </div>
+              <div>
+                <div style="font-size: 32px; font-weight: 700; color: var(--brand);">48</div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Products shipped</div>
+              </div>
+              <div>
+                <div style="font-size: 32px; font-weight: 700; color: var(--brand);">120+</div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Agents deployed</div>
+              </div>
+              <div>
+                <div style="font-size: 32px; font-weight: 700; color: var(--brand);">99.9%</div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Uptime maintained</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 48px;">
+          <h2 style="font-size: 24px; font-weight: 600; margin-bottom: 24px;">Our values</h2>
+          <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+            <article class="card">
+              <h3 class="card__title">Reliability</h3>
+              <p class="card__desc">Systems that work consistently, even under pressure. We test thoroughly before anything goes live.</p>
+            </article>
+            <article class="card">
+              <h3 class="card__title">Craft</h3>
+              <p class="card__desc">Attention to detail in every layer — from architecture decisions to pixel-perfect UI implementation.</p>
+            </article>
+            <article class="card">
+              <h3 class="card__title">Clarity</h3>
+              <p class="card__desc">Clear communication, transparent processes, and honest assessments of what's achievable.</p>
+            </article>
+          </div>
+        </div>
+
+        <div style="margin-top: 48px; text-align: center;">
+          <p style="color: var(--text-muted); margin-bottom: 16px;">Want to learn more?</p>
+          <a href="/contact" class="btn btn--primary">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__logo">
+            <div class="footer__mark">
+              <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#rg1)"/>
+                <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+                <circle cx="38" cy="22" r="2" fill="url(#rg1)"/>
+              </svg>
+            </div>
+            <span>Raven</span>
+          </div>
+          <p class="footer__desc">A small studio building AI agents, automation systems, and full-stack products. Quiet, deliberate, reliable.</p>
+          <div class="footer__social">
+            <a href="https://twitter.com/ravenai" class="footer__social-link" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+            <a href="https://github.com/raven-ai" class="footer__social-link" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+            <a href="mailto:hello@raven.ai" class="footer__social-link" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></a>
+          </div>
+        </div>
+        <div><h4 class="footer__heading">Services</h4><a href="/services" class="footer__link">AI Agents</a><a href="/services" class="footer__link">Automation</a><a href="/services" class="footer__link">Full-Stack</a></div>
+        <div><h4 class="footer__heading">Company</h4><a href="/work" class="footer__link">Work</a><a href="/about" class="footer__link">About</a><a href="/faq" class="footer__link">FAQ</a></div>
+        <div><h4 class="footer__heading">Account</h4><a href="/login" class="footer__link">Client Portal</a><a href="/contact" class="footer__link">Contact</a></div>
+      </div>
+      <div class="footer__bottom"><span>© 2027 Raven. All rights reserved.</span><div class="footer__legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:hello@raven.ai">Contact</a></div></div>
+    </div>
+  </footer>
+  <script src="js/app.js"></script>
+</body>
+</html>

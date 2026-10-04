@@ -25,27 +25,26 @@ const generateCSRFToken = () => {
   return crypto.randomBytes(32).toString('hex');
 };
 
-// Auth middleware - checks if user is logged in
+// Auth middleware - checks if user is logged in via session
 const requireAuth = async (req, res, next) => {
-  const sessionId = req.session?.id;
-  
-  if (!sessionId) {
-    return res.status(401).json({ error: 'Authentication required' });
+  // express-session sets req.session with userId if logged in
+  if (!req.session?.userId) {
+    return res.status(401).json({ success: false, error: 'Authentication required' });
   }
 
   try {
     const result = await query(
-      `SELECT u.id, u.email, u.first_name, u.last_name, u.role, u.is_active,
+      `SELECT u.id, u.email, u.first_name, u.last_name, u.role, u.is_active, u.email_verified,
               s.expires_at, s.revoked_at
        FROM users u
        JOIN sessions s ON u.id = s.user_id
-       WHERE s.session_id = $1 AND s.revoked_at IS NULL AND s.expires_at > NOW()`,
-      [sessionId]
+       WHERE s.user_id = $1 AND s.revoked_at IS NULL AND s.expires_at > NOW()`,
+      [req.session.userId]
     );
     
     if (result.rows.length === 0) {
       req.session.destroy(() => {});
-      return res.status(401).json({ error: 'Session expired or invalid' });
+      return res.status(401).json({ success: false, error: 'Session expired or invalid' });
     }
     
     req.user = {
@@ -55,11 +54,12 @@ const requireAuth = async (req, res, next) => {
       lastName: result.rows[0].last_name,
       role: result.rows[0].role,
       emailVerified: result.rows[0].email_verified,
+      isActive: result.rows[0].is_active,
     };
     req.isAuthenticated = true;
     next();
   } catch (err) {
-    console.error('Auth middleware error:', err);
+    console.error('Auth middleware error:', err.message);
     next(err);
   }
 };
@@ -67,7 +67,7 @@ const requireAuth = async (req, res, next) => {
 // Admin only middleware
 const requireAdmin = (req, res, next) => {
   if (!req.isAuthenticated || req.user.role !== 'admin') {
-    return res.status(403).json({ error: 'Admin access required' });
+    return res.status(403).json({ success: false, error: 'Admin access required' });
   }
   next();
 };

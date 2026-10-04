@@ -9,10 +9,10 @@ const sessionMiddleware = session({
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     sameSite: 'lax',
   },
-  name: 'raven_session',
+  name: 'connect.sid',
   proxy: process.env.NODE_ENV === 'production',
   unset: 'keep',
 });

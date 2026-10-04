@@ -3,34 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login — Raven</title>
+  <title>Login — Raven Client Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Navigation with centered logo -->
   <nav class="nav">
     <div class="nav__inner">
       <div class="nav__left">
-        <a href="/" class="nav__link">Services</a>
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link">Services</a>
         <a href="/work" class="nav__link">Work</a>
       </div>
-      
       <a href="/" class="nav__brand">
-        <div class="nav__mark"></div>
+        <div class="nav__mark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="ravenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#5a67d8"/>
+                <stop offset="100%" style="stop-color:#3b4fc4"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#ravenGrad)"/>
+            <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+            <circle cx="38" cy="22" r="2" fill="url(#ravenGrad)"/>
+          </svg>
+        </div>
         <span>Raven</span>
       </a>
-      
       <div class="nav__right">
         <a href="/pricing" class="nav__link">Pricing</a>
         <a href="/faq" class="nav__link">FAQ</a>
       </div>
-      
       <button class="nav__menu-btn" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
@@ -38,58 +45,55 @@
   <div class="auth-page">
     <div class="auth-card">
       <div class="auth-card__header">
-        <div class="footer__logo" style="justify-content: center; margin-bottom: 20px;">
-          <div class="footer__mark"></div>
-          <span style="font-size: 20px; font-weight: 700;">Raven</span>
+        <div style="display:flex; align-items:center; gap:10px; justify-content:center; margin-bottom:20px;">
+          <div class="footer__mark" style="width:32px;height:32px;">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#ravenGrad)"/>
+              <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+              <circle cx="38" cy="22" r="2" fill="url(#ravenGrad)"/>
+            </svg>
+          </div>
+          <span style="font-size:20px;font-weight:700;">Raven</span>
         </div>
         <h1 class="auth-card__title" id="formTitle">Sign in to portal</h1>
         <p class="auth-card__desc" id="formDesc">Access your project dashboard and agent telemetry.</p>
       </div>
 
-      <!-- Login Form -->
       <form id="loginForm" class="auth-form">
         <div class="form-group">
           <label class="form-label" for="loginEmail">Work email</label>
           <input type="email" id="loginEmail" class="form-input" placeholder="name@company.com" required>
         </div>
-        
         <div class="form-group">
           <label class="form-label" for="loginPassword">Password</label>
           <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
         </div>
-        
         <div class="form-row">
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
             <input type="checkbox" style="accent-color: var(--brand);"> Remember me
           </label>
-          <a href="#" class="form-link">Forgot password?</a>
+          <a href="/forgot-password" class="form-link">Forgot password?</a>
         </div>
-        
         <button type="submit" class="btn btn--primary btn--block btn--lg">Sign in</button>
       </form>
 
-      <!-- Register Form (hidden by default) -->
       <form id="registerForm" class="auth-form hidden">
         <div class="form-group">
           <label class="form-label" for="registerFirstName">First name</label>
           <input type="text" id="registerFirstName" class="form-input" placeholder="John">
         </div>
-        
         <div class="form-group">
           <label class="form-label" for="registerLastName">Last name</label>
           <input type="text" id="registerLastName" class="form-input" placeholder="Doe">
         </div>
-        
         <div class="form-group">
           <label class="form-label" for="registerEmail">Work email</label>
           <input type="email" id="registerEmail" class="form-input" placeholder="name@company.com" required>
         </div>
-        
         <div class="form-group">
           <label class="form-label" for="registerPassword">Password</label>
           <input type="password" id="registerPassword" class="form-input" placeholder="Min 8 characters" required minlength="8">
         </div>
-        
         <button type="submit" class="btn btn--primary btn--block btn--lg">Create account</button>
       </form>
 
@@ -113,9 +117,18 @@
     </div>
   </div>
 
+  <footer class="footer" style="padding: 30px 0;">
+    <div class="container" style="text-align:center;">
+      <span style="font-size:13px;color:var(--text-muted);">© 2027 Raven. All rights reserved.</span>
+      <div style="display:flex;gap:20px;justify-content:center;margin-top:12px;font-size:13px;">
+        <a href="/privacy" style="color:var(--text-muted);">Privacy</a>
+        <a href="/terms" style="color:var(--text-muted);">Terms</a>
+      </div>
+    </div>
+  </footer>
+
   <script src="js/app.js"></script>
   <script>
-    // Toggle between login and register forms
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     const toggleForm = document.getElementById('toggleForm');
@@ -125,7 +138,6 @@
     
     let isRegister = false;
     
-    // Check URL for register parameter
     if (new URLSearchParams(window.location.search).get('register') === 'true') {
       isRegister = true;
     }
@@ -155,7 +167,6 @@
       toggleFormMode();
     });
     
-    // Initialize form state
     if (isRegister) {
       toggleFormMode();
     }

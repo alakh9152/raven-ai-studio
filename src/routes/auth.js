@@ -1,124 +1,165 @@
 const { Router } = require('express');
-const { body, validationResult } = require('express-validator');
+const { requireAuth, generateCSRFToken } = require('../middleware/auth');
 const authService = require('../services/authService');
-const { isValidEmail, validatePassword } = require('../services/crypto');
-const { requestLogger } = require('../middleware/logging');
 
 const router = Router();
 
 // POST /api/auth/register
-router.post(
-  '/register',
-  requestLogger,
-  [
-    body('email').isEmail().normalizeEmail().trim(),
-    body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters'),
-    body('password').custom((value) => {
-      if (!validatePassword(value)) {
-        throw new Error('Password must contain letters and numbers');
-      }
-      return true;
-    }),
-    body('firstName').optional().trim().isLength({ min: 1 }),
-    body('lastName').optional().trim().isLength({ min: 1 }),
-  ],
-  async (req, res, next) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
+router.post('/register', async (req, res, next) => {
+  try {
+    const { email, password, firstName, lastName } = req.body;
+    
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: 'Email and password are required' });
+    }
 
-      const { email, password, firstName, lastName } = req.body;
-
-      const result = await authService.register({ email, password, firstName, lastName });
-
-      // Set session
-      req.session.id = result.session?.id;
-      req.session.userId = result.user.id;
-
+    const result = await authService.register({ email, password, firstName, lastName });
+    
+    // Set session
+    req.session.userId = result.user.id;
+    req.session.save((err) => {
+      if (err) return next(err);
+      
       res.status(201).json({
+        success: true,
         message: 'Registration successful',
         user: result.user,
       });
-    } catch (error) {
-      next(error);
-    }
+    });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    res.status(status).json({ success: false, error: error.message });
   }
-);
+});
 
 // POST /api/auth/login
-router.post(
-  '/login',
-  requestLogger,
-  [
-    body('email').isEmail().normalizeEmail().trim(),
-    body('password').notEmpty().withMessage('Password is required'),
-  ],
-  async (req, res, next) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
+router.post('/login', async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    
+    if (!email || !password) {
+      return res.status(400).json({ success: false, error: 'Email and password are required' });
+    }
 
-      const { email, password } = req.body;
-      const ipAddress = req.ip || req.connection.remoteAddress;
-      const userAgent = req.get('User-Agent');
+    const ipAddress = req.ip || req.connection.remoteAddress;
+    const userAgent = req.get('User-Agent');
 
-      const result = await authService.login({ email, password, ipAddress, userAgent });
+    const result = await authService.login({ email, password, ipAddress, userAgent });
 
-      req.session.id = result.session.id;
-      req.session.userId = result.user.id;
-
+    // Set session
+    req.session.userId = result.user.id;
+    req.session.save((err) => {
+      if (err) return next(err);
+      
       res.json({
+        success: true,
         message: 'Login successful',
         user: result.user,
       });
-    } catch (error) {
-      next(error);
-    }
+    });
+  } catch (error) {
+    const status = error.statusCode || 401;
+    res.status(status).json({ success: false, error: error.message });
   }
-);
+});
 
 // POST /api/auth/logout
-router.post(
-  '/logout',
-  requestLogger,
-  async (req, res, next) => {
-    try {
-      const sessionId = req.session?.id;
-      
-      if (sessionId) {
-        await authService.logout(sessionId);
-      }
-      
-      req.session.destroy((err) => {
-        if (err) return next(err);
-        res.clearCookie('raven_session');
-        res.json({ message: 'Logged out successfully' });
-      });
-    } catch (error) {
-      next(error);
+router.post('/logout', async (req, res, next) => {
+  try {
+    const sessionId = req.session?.id;
+    
+    if (sessionId) {
+      await authService.logout(sessionId);
     }
+    
+    req.session.destroy((err) => {
+      if (err) return next(err);
+      res.clearCookie('raven_session');
+      res.clearCookie('connect.sid');
+      res.json({ success: true, message: 'Logged out successfully' });
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 // GET /api/auth/me
-router.get(
-  '/me',
-  requestLogger,
-  async (req, res, next) => {
-    try {
-      if (!req.isAuthenticated) {
-        return res.status(401).json({ error: 'Authentication required' });
-      }
-      
-      res.json({ user: req.user });
-    } catch (error) {
-      next(error);
-    }
+router.get('/me', requireAuth, async (req, res, next) => {
+  try {
+    res.json({ user: req.user });
+  } catch (error) {
+    next(error);
   }
-);
+});
+
+// POST /api/auth/verify-email
+router.post('/verify-email', async (req, res, next) => {
+  try {
+    const { token } = req.body;
+    const userId = req.user?.id;
+    
+    if (!token || !userId) {
+      return res.status(400).json({ success: false, error: 'Token and user ID are required' });
+    }
+
+    await authService.verifyEmail(userId, token);
+    res.json({ success: true, message: 'Email verified successfully' });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    res.status(status).json({ success: false, error: error.message });
+  }
+});
+
+// POST /api/auth/forgot-password
+router.post('/forgot-password', async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ success: false, error: 'Email is required' });
+    }
+
+    const result = await authService.forgotPassword(email);
+    res.json({ success: true, message: result.message || 'If the email exists, a reset link has been sent' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST /api/auth/reset-password
+router.post('/reset-password', async (req, res, next) => {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      return res.status(400).json({ success: false, error: 'Token and new password are required' });
+    }
+
+    await authService.resetPassword(token, newPassword);
+    res.json({ success: true, message: 'Password reset successfully' });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    res.status(status).json({ success: false, error: error.message });
+  }
+});
+
+// POST /api/auth/change-password
+router.post('/change-password', requireAuth, async (req, res, next) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ success: false, error: 'Current and new password are required' });
+    }
+
+    await authService.changePassword(req.user.id, currentPassword, newPassword);
+    res.json({ success: true, message: 'Password changed successfully' });
+  } catch (error) {
+    const status = error.statusCode || 500;
+    res.status(status).json({ success: false, error: error.message });
+  }
+});
+
+// GET /api/auth/csrf-token
+router.get('/csrf-token', async (req, res) => {
+  res.json({ token: generateCSRFToken() });
+});
 
 module.exports = router;

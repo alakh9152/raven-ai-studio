@@ -7,27 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    .dashboard-grid { display: grid; grid-template-columns: 250px 1fr; gap: 24px; min-height: calc(100vh - 200px); }
-    .sidebar { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
-    .sidebar__nav { display: flex; flex-direction: column; gap: 8px; }
-    .sidebar__link { padding: 12px 16px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; color: var(--text-soft); transition: all 0.2s; }
-    .sidebar__link:hover, .sidebar__link--active { background: var(--brand-light); color: var(--brand); }
-    .main-content { padding: 8px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
-    .stat-card__value { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
-    .stat-card__label { font-size: 13px; color: var(--text-muted); }
-    .content-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; }
-    .content-card h3 { font-size: 18px; margin-bottom: 16px; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
-    th { font-weight: 600; color: var(--text-muted); font-size: 12px; text-transform: uppercase; }
-    .badge { display: inline-block; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; }
-    .badge--success { background: #e6f4e8; color: #1c7c30; }
-    .badge--warning { background: #fff4e6; color: #c77800; }
-    .badge--info { background: var(--brand-light); color: var(--brand); }
-  </style>
 </head>
 <body>
   <nav class="nav">
@@ -36,17 +15,28 @@
         <a href="/" class="nav__link">Home</a>
         <a href="/services" class="nav__link">Services</a>
       </div>
-      <a href="/" class="nav__brand"><div class="nav__mark"></div><span>Raven</span></a>
+      <a href="/" class="nav__brand">
+        <div class="nav__mark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#5a67d8"/><stop offset="100%" style="stop-color:#3b4fc4"/></linearGradient></defs>
+            <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#rg1)"/>
+            <path d="M48 16c-4 0-8 2-11 5-2-3-5-5-9-5-6 0-11 4-12 10-1 4 0 8 2 11l-4 8c-1 2 0 4 2 4h2c2 0 4-1 5-3l4-6c3 1 6 1 9 0l4 6c1 2 3 3 5 3h2c2 0 3-2 2-4l-4-8c2-3 3-7 2-11-1-6-6-10-12-10z" fill="white" opacity="0.95"/>
+            <circle cx="38" cy="22" r="2" fill="url(#rg1)"/>
+          </svg>
+        </div>
+        <span>Raven</span>
+      </a>
       <div class="nav__right">
-        <span id="userName" style="font-size: 13px; color: var(--text-muted)"></span>
+        <span id="navUser" style="font-size: 13px; color: var(--text-muted)"></span>
         <button onclick="handleLogout()" class="btn btn--ghost" style="font-size: 13px">Sign Out</button>
       </div>
+      <button class="nav__menu-btn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <div class="container" style="padding-top: 24px; padding-bottom: 40px;">
-    <div class="dashboard-grid">
-      <aside class="sidebar">
+    <div style="display: grid; grid-template-columns: 250px 1fr; gap: 24px; min-height: calc(100vh - 200px);">
+      <aside style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; height: fit-content;">
         <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border);">
           <div style="width: 48px; height: 48px; background: var(--brand-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--brand); font-size: 20px;" id="userAvatar">U</div>
           <div style="margin-top: 12px;">
@@ -54,50 +44,67 @@
             <div style="font-size: 13px; color: var(--text-muted);" id="userEmail">user@example.com</div>
           </div>
         </div>
-        <nav class="sidebar__nav">
-          <a href="#" class="sidebar__link sidebar__link--active">Dashboard</a>
-          <a href="#" class="sidebar__link">Projects</a>
-          <a href="/pricing" class="sidebar__link">Pricing</a>
-          <a href="/faq" class="sidebar__link">FAQ</a>
+        <nav style="display: flex; flex-direction: column; gap: 4px;">
+          <a href="/dashboard" class="btn btn--ghost" style="justify-content: flex-start; padding: 10px 12px; border-radius: var(--radius-sm); text-align: left; font-weight: 500; background: var(--brand-light); color: var(--brand);">Dashboard</a>
+          <a href="/pricing" class="btn btn--ghost" style="justify-content: flex-start; padding: 10px 12px; border-radius: var(--radius-sm); text-align: left; font-weight: 500;">Pricing</a>
+          <a href="/faq" class="btn btn--ghost" style="justify-content: flex-start; padding: 10px 12px; border-radius: var(--radius-sm); text-align: left; font-weight: 500;">FAQ</a>
+          <a href="/" class="btn btn--ghost" style="justify-content: flex-start; padding: 10px 12px; border-radius: var(--radius-sm); text-align: left; font-weight: 500;">Home</a>
         </nav>
       </aside>
 
-      <main class="main-content">
+      <main style="padding: 8px;">
         <h1 style="font-size: 28px; margin-bottom: 24px;">Dashboard</h1>
-        
-        <div class="stats-grid" id="statsGrid">
-          <div class="stat-card">
-            <div class="stat-card__value" id="statProjects">-</div>
-            <div class="stat-card__label">Active Projects</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__value" id="statEnquiries">-</div>
-            <div class="stat-card__label">Pending Enquiries</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card__value" id="statAgents">-</div>
-            <div class="stat-card__label">Agents Deployed</div>
-          </div>
+
+        <div id="loadingState" style="text-align: center; padding: 40px; color: var(--text-muted);">
+          <div class="spinner" style="margin: 0 auto 16px;"></div>
+          <p>Loading your dashboard...</p>
         </div>
 
-        <div class="content-card">
-          <h3>Recent Activity</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Activity</th>
-                <th>Date</th>
-                <th>Status</th>
+        <div id="errorState" style="display: none; text-align: center; padding: 40px;">
+          <p style="color: #c02a2a; margin-bottom: 16px;">Failed to load dashboard data</p>
+          <a href="/dashboard" class="btn btn--secondary">Retry</a>
+        </div>
+
+        <div id="dashboardContent" style="display: none;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px;">
+              <div style="font-size: 32px; font-weight: 700;" id="statProjects">-</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Active Projects</div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px;">
+              <div style="font-size: 32px; font-weight: 700;" id="statEnquiries">-</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Pending Enquiries</div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px;">
+              <div style="font-size: 32px; font-weight: 700;" id="statStatus">-</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Account Status</div>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 24px;">
+            <h3 style="font-size: 18px; margin-bottom: 16px;">Recent Projects</h3>
+            <div id="projectsList">
+              <p style="color: var(--text-muted); font-size: 14px;">No projects yet. <a href="/contact" style="color: var(--brand);">Start a project</a></p>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px;">
+            <h3 style="font-size: 18px; margin-bottom: 16px;">Account Info</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 12px 0; font-weight: 500; color: var(--text-muted); width: 140px;">Email</td>
+                <td id="accountEmail" style="padding: 12px 0;">-</td>
               </tr>
-            </thead>
-            <tbody id="activityTable">
-              <tr>
-                <td>Account created</td>
-                <td>Just now</td>
-                <td><span class="badge badge--success">Complete</span></td>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 12px 0; font-weight: 500; color: var(--text-muted);">Role</td>
+                <td id="accountRole" style="padding: 12px 0;">-</td>
               </tr>
-            </tbody>
-          </table>
+              <tr>
+                <td style="padding: 12px 0; font-weight: 500; color: var(--text-muted);">Status</td>
+                <td id="accountStatus" style="padding: 12px 0;">-</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </main>
     </div>
@@ -113,41 +120,68 @@
         if (res.ok) {
           currentUser = await res.json();
           updateUI(currentUser.user);
+          await loadDashboard();
+          document.getElementById('loadingState').style.display = 'none';
+          document.getElementById('dashboardContent').style.display = 'block';
         } else {
           window.location.href = '/login';
         }
       } catch (err) {
+        console.error('Auth check failed:', err);
         window.location.href = '/login';
       }
     }
 
     function updateUI(user) {
-      document.getElementById('userName').textContent = user.firstName || user.email.split('@')[0];
+      document.getElementById('navUser').textContent = user.firstName || user.email.split('@')[0];
       document.getElementById('userEmail').textContent = user.email;
       document.getElementById('userFullName').textContent = `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'User';
       document.getElementById('userAvatar').textContent = (user.firstName || user.email)[0].toUpperCase();
+      document.getElementById('accountEmail').textContent = user.email;
+      document.getElementById('accountRole').textContent = user.role === 'admin' ? 'Administrator' : 'Client';
+      document.getElementById('accountStatus').innerHTML = user.isActive ? 
+        '<span style="color: #1c7c30; font-weight: 500;">Active</span>' : 
+        '<span style="color: #c77800; font-weight: 500;">Inactive</span>';
     }
 
-    async function handleLogout() {
-      await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
-      window.location.href = '/';
-    }
-
-    async function loadStats() {
+    async function loadDashboard() {
       try {
-        const res = await fetch(`${API_BASE}/api/dashboard/stats`, { credentials: 'include' });
-        if (res.ok) {
-          const stats = await res.json();
-          document.getElementById('statProjects').textContent = stats.totalProjects || 0;
-          document.getElementById('statEnquiries').textContent = stats.pendingEnquiries || 0;
-          document.getElementById('statAgents').textContent = '0';
+        const res = await fetch(`${API_BASE}/api/dashboard`, { credentials: 'include' });
+        if (!res.ok) throw new Error('Failed to load dashboard');
+        
+        const data = await res.json();
+        
+        document.getElementById('statProjects').textContent = data.stats.totalProjects || 0;
+        document.getElementById('statEnquiries').textContent = data.stats.pendingEnquiries || 0;
+        document.getElementById('statStatus').innerHTML = '<span style="color: #1c7c30;">Active</span>';
+
+        if (data.projects && data.projects.length > 0) {
+          document.getElementById('projectsList').innerHTML = data.projects.map(p => `
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border);">
+              <div>
+                <div style="font-weight: 500;">${p.name}</div>
+                <div style="font-size: 13px; color: var(--text-muted);">${new Date(p.created_at).toLocaleDateString()}</div>
+              </div>
+              <span style="padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; background: ${p.status === 'active' ? 'var(--brand-light)' : 'var(--bg)'}; color: ${p.status === 'active' ? 'var(--brand)' : 'var(--text-muted)'};">${p.status}</span>
+            </div>
+          `).join('');
         }
       } catch (err) {
-        console.error('Failed to load stats:', err);
+        console.error('Dashboard load error:', err);
+        document.getElementById('errorState').style.display = 'block';
       }
     }
 
-    checkAuth().then(loadStats);
+    async function handleLogout() {
+      try {
+        await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST', credentials: 'include' });
+      } catch (err) {
+        console.error('Logout failed:', err);
+      }
+      window.location.href = '/';
+    }
+
+    checkAuth();
   </script>
 </body>
 </html>

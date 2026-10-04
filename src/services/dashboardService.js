@@ -1,95 +1,89 @@
-const { query, transaction } = require('../config/db');
-const authService = require('./authService');
+const { query } = require('../config/db');
 
 class DashboardService {
-  // Get dashboard statistics
-  async getStats(userId, role) {
-    if (role === 'admin') {
-      // Admin sees all stats
-      const [users, projects, enquiries] = await Promise.all([
-        query('SELECT COUNT(*) as count FROM users WHERE is_active = true'),
-        query('SELECT COUNT(*) as count FROM projects'),
-        query("SELECT COUNT(*) as count FROM enquiries WHERE status = 'new'"),
-      ]);
+  // Get dashboard statistics for current user
+  async getStats(userId) {
+    const [projects, enquiries] = await Promise.all([
+      query('SELECT COUNT(*) as count FROM projects WHERE client_id = $1 AND status != $2', [userId, 'archived']),
+      query("SELECT COUNT(*) as count FROM enquiries WHERE email = (SELECT email FROM users WHERE id = $1)", [userId]),
+    ]);
 
-      return {
-        totalUsers: parseInt(users.rows[0].count),
-        totalProjects: parseInt(projects.rows[0].count),
-        pendingEnquiries: parseInt(enquiries.rows[0].count),
-      };
-    } else {
-      // Client sees their own stats
-      const [projects, enquiries] = await Promise.all([
-        query('SELECT COUNT(*) as count FROM projects WHERE client_id = $1', [userId]),
-        query("SELECT COUNT(*) as count FROM enquiries WHERE email = (SELECT email FROM users WHERE id = $1)", [userId]),
-      ]);
-
-      return {
-        totalProjects: parseInt(projects.rows[0].count),
-        totalEnquiries: parseInt(enquiries.rows[0].count),
-      };
-    }
+    return {
+      totalProjects: parseInt(projects.rows[0].count),
+      pendingEnquiries: parseInt(enquiries.rows[0].count),
+    };
   }
 
-  // Get projects for user
-  async getProjects(userId, role) {
-    if (role === 'admin') {
-      return await query(`
-        SELECT p.*, u.email as client_email, u.first_name, u.last_name
-        FROM projects p
-        JOIN users u ON p.client_id = u.id
-        ORDER BY p.created_at DESC
-      `);
-    } else {
-      return await query(
-        'SELECT * FROM projects WHERE client_id = $1 ORDER BY created_at DESC',
-        [userId]
-      );
-    }
+  // Get user's projects
+  async getProjects(userId) {
+    return await query(
+      `SELECT * FROM projects 
+       WHERE client_id = $1 
+       ORDER BY created_at DESC`,
+      [userId]
+    );
   }
 
-  // Get users (admin only)
-  async getUsers() {
-    return await query(`
-      SELECT id, email, first_name, last_name, role, is_active, email_verified, created_at
-      FROM users
-      ORDER BY created_at DESC
-    `);
+  // Create a project
+  async createProject(userId, { name, description, status }) {
+    return await query(
+      `INSERT INTO projects (name, description, status, client_id)
+       VALUES ($1, $2, $3, $4)
+       RETURNING *`,
+      [name, description || null, status || 'active', userId]
+    );
   }
 
-  // Get enquiries
-  async getEnquiries(userId, role) {
-    if (role === 'admin') {
-      return await query('SELECT * FROM enquiries ORDER BY created_at DESC LIMIT 50');
-    } else {
-      // Clients can only see their own enquiries
-      const userEmail = await query('SELECT email FROM users WHERE id = $1', [userId]);
-      return await query(
-        "SELECT * FROM enquiries WHERE email = $1 ORDER BY created_at DESC",
-        [userEmail.rows[0].email]
-      );
-    }
-  }
-
-  // Update enquiry status
-  async updateEnquiryStatus(enquiryId, status, userId) {
+  // Get single project with ownership check
+  async getProject(userId, projectId) {
     const result = await query(
-      'UPDATE enquiries SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING id, status',
-      [status, enquiryId]
+      'SELECT * FROM projects WHERE id = $1 AND client_id = $2',
+      [projectId, userId]
     );
-
     if (result.rows.length === 0) {
-      throw new Error('Enquiry not found');
+      throw Object.assign(new Error('Project not found'), { statusCode: 404 });
     }
-
-    // Log the activity
-    await query(
-      `SELECT log_activity($1, 'enquiry_status_update', 'enquiry', $2, NULL, NULL, NULL, 
-        jsonb_build_object('status', $3))`,
-      [userId, enquiryId, status]
-    );
-
     return result.rows[0];
+  }
+
+  // Update project with ownership check
+  async updateProject(userId, projectId, { name, description, status }) {
+    const result = await query(
+      `UPDATE projects 
+       SET name = COALESCE($1, name), description = COALESCE($2, description), 
+           status = COALESCE($3, status) 
+       WHERE id = $4 AND client_id = $5 
+       RETURNING *`,
+      [name, description, status, projectId, userId]
+    );
+    if (result.rows.length === 0) {
+      throw Object.assign(new Error('Project not found'), { statusCode: 404 });
+    }
+    return result.rows[0];
+  }
+
+  // Delete project with ownership check
+  async deleteProject(userId, projectId) {
+    const result = await query(
+      'DELETE FROM projects WHERE id = $1 AND client_id = $2 RETURNING id',
+      [projectId, userId]
+    );
+    if (result.rows.length === 0) {
+      throw Object.assign(new Error('Project not found'), { statusCode: 404 });
+    }
+    return { success: true };
+  }
+
+  // Get enquiries for user
+  async getEnquiries(userId) {
+    const userEmail = await query('SELECT email FROM users WHERE id = $1', [userId]);
+    if (userEmail.rows.length === 0) {
+      throw Object.assign(new Error('User not found'), { statusCode: 404 });
+    }
+    return await query(
+      'SELECT * FROM enquiries WHERE email = $1 ORDER BY created_at DESC',
+      [userEmail.rows[0].email]
+    );
   }
 }
 
